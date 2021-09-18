@@ -80,7 +80,6 @@ class KeywordsStatistics {
         }
     }
     public void print(int level) {
-        System.out.println(level);
         if (level >= 1) {
             System.out.println("total num: "+totalNum);
         }
