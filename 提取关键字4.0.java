@@ -27,7 +27,7 @@ class KeywordsStatistics {
     private Map<String, Integer> keymap = new HashMap<String, Integer>();
     private String[] words;
     private int totalNum;
-    private int[] caseNum = {0};
+    private int[] caseNum = new int[100];
     private int if_elseNum;
     private int if_elseif_elseNum;
     boolean hasElseSign ;
@@ -59,8 +59,7 @@ class KeywordsStatistics {
                     while (!stack.empty() && stack.pop() != 1) ;
                 }
             }
-            String temp = line.replace("\"", "a");
-            words = temp.split("[\\W]+");
+            words = line.split("[\\W]+");
             for (int i = 0; i < words.length; i++) {
                 if (keymap.containsKey(words[i])) {
                     totalNum++;
@@ -68,7 +67,7 @@ class KeywordsStatistics {
                     keymap.put(words[i], ++count);
                     if (level >= 2) {
                         if (words[i].equals("switch")) {
-                            int num = count.intValue();
+                            int num = count;
                             if (num > 1) {
                                 caseNum[num - 2] = keymap.get("case");
                                 keymap.put("case", 0);
@@ -85,11 +84,17 @@ class KeywordsStatistics {
         }
         if (level >= 2) {
             System.out.println("switch num: "+keymap.get("switch"));
+            if (keymap.get("switch") >= 1) {
+                caseNum[keymap.get("switch") -1] = keymap.get("case");
+            }
             System.out.print("case num:");
-            for (int i = 0; i < keymap.get("switch")-1; i++) {
+            for (int i = 0; i < keymap.get("switch"); i++) {
                 System.out.print(" "+caseNum[i]);
             }
-            System.out.println(" "+keymap.get("case"));
+            if (keymap.get("switch") == 0) {
+                System.out.print(" 0");
+            }
+            System.out.println();
         }
         if (level >= 3) {
             System.out.println("if-else num: "+if_elseNum);
