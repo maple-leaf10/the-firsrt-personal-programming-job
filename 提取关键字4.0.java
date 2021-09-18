@@ -106,6 +106,7 @@ class KeywordsStatistics {
         try {
             while ((str = reader.readLine().trim()) != null) {
                 if (0 != str.length()) {
+                    str = str.replaceAll("\".*\"","");
                     if(!hasElseSign){//如果没有多行注释
                         for(index = 0;index < str.length();index++){
                             ch = str.charAt(index);
