@@ -130,7 +130,9 @@ class KeywordsStatistics {
                                     break;
                                 } else if (str.charAt(index + 1) == '*') {
                                     if (! str.contains("*/")) {//是否有多行注释，如有，则标志
+                                        str = str.substring(0, index);
                                         hasElseSign = true;
+                                        handleWords(str);
                                         break;
                                     } else {//如果没有多行注释，则截取字符串
                                         str = str.substring(0, index);
