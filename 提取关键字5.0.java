@@ -146,6 +146,10 @@ class KeywordsStatistics {
                         for (index = 0; index < str.length(); index ++) {
                             ch = str.charAt(index);
                             if ((ch == '*') && (index < str.length() - 1) && (str.charAt(index + 1) == '/')) {//找到多行注释结尾
+                                if (index + 1 < str.length() - 1) {
+                                    str = str.substring(index + 2, str.length());
+                                    handleWords(str);
+                                }
                                 hasElseSign = false;
                                 break;
                             }
